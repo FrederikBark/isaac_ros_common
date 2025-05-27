@@ -1,0 +1,8 @@
+build_datetime: '2025-05-27T17:10:33.205681'
+git_branch: jazzy
+git_commit_date: 2025-05-23 11:29:24 +0200
+git_commit_hash: 7b88b01d9e9ecb807aaafce048b44a3da9bb09fe
+git_commit_message: added ignore for dataset package, as it collides with our build
+  server
+git_workspace_dirty: 'Yes'
+version: 3.2.5
