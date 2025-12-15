@@ -20,11 +20,17 @@ import importlib.util
 from ament_index_python.packages import get_resource
 
 from pathlib import Path
-
-ISAAC_ROS_COMMON_PATH = get_resource(
-    'isaac_ros_common_scripts_path',
-    'isaac_ros_common'
-)[0]
+try:
+    ISAAC_ROS_COMMON_PATH = get_resource(
+        'isaac_ros_common_scripts_path',
+        'isaac_ros_common'
+    )[0]
+    
+except:
+    if "clean" in sys.argv:
+        sys.exit(0)
+    else:
+        ISAAC_ROS_COMMON_PATH = None
 
 ISAAC_ROS_COMMON_VERSION_INFO = Path(ISAAC_ROS_COMMON_PATH) / 'isaac_ros_common-version-info.py'
 
@@ -39,6 +45,7 @@ spec.loader.exec_module(isaac_ros_common_version_info)
 
 from isaac_ros_common_version_info import GenerateVersionInfoCommand  # noqa: E402, I100
 PACKAGE_NAME = 'isaac_ros_launch_utils'
+
 
 LICENSE = """
 Copyright (c) 2024, NVIDIA CORPORATION. All rights reserved.
