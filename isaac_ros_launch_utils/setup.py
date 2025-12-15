@@ -28,9 +28,11 @@ try:
     
 except:
     if "clean" in sys.argv:
+        print("isaac_ros_common package not found, skipping during clean up.")
         sys.exit(0)
     else:
-        ISAAC_ROS_COMMON_PATH = None
+        print("ERROR isaac_ros_common package not found")
+        sys.exit(1)
 
 ISAAC_ROS_COMMON_VERSION_INFO = Path(ISAAC_ROS_COMMON_PATH) / 'isaac_ros_common-version-info.py'
 
