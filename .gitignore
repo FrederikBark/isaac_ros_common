@@ -3,3 +3,6 @@
 
 # Ignore config files
 .isaac_ros_common-config
+
+# Ignore version_info.yaml generated into Python packages by setup.py build_py
+*/build/
