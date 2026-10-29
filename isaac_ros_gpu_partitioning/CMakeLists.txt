@@ -1,4 +1,18 @@
 cmake_minimum_required(VERSION 3.20)
+# Prefer NVIDIA's CUDA toolkit in /usr/local/cuda over the distro's nvidia-cuda-toolkit
+# (e.g. CUDA 12.4 on Ubuntu 26.04), which is found first via /usr/bin/nvcc and /usr/lib.
+if(EXISTS "/usr/local/cuda/bin/nvcc")
+  if(NOT DEFINED CMAKE_CUDA_COMPILER AND NOT DEFINED ENV{CUDACXX})
+    set(CMAKE_CUDA_COMPILER "/usr/local/cuda/bin/nvcc")
+  endif()
+  if(NOT DEFINED CUDAToolkit_ROOT AND NOT DEFINED ENV{CUDAToolkit_ROOT})
+    set(CUDAToolkit_ROOT "/usr/local/cuda")
+  endif()
+  if(NOT DEFINED CUDA_TOOLKIT_ROOT_DIR)
+    set(CUDA_TOOLKIT_ROOT_DIR "/usr/local/cuda" CACHE PATH "CUDA toolkit root")
+  endif()
+endif()
+
 project(isaac_ros_gpu_partitioning LANGUAGES C CXX CUDA)
 
 # Enable CUDA

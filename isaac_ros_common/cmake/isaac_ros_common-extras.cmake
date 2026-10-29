@@ -18,6 +18,17 @@
 # Common flags and cmake commands for all Isaac ROS packages.
 message(STATUS "Loading isaac_ros_common extras")
 
+# Prefer NVIDIA's CUDA toolkit in /usr/local/cuda over the distro's nvidia-cuda-toolkit
+# (e.g. CUDA 12.4 on Ubuntu 26.04). The CUDA compiler itself is selected before project().
+if(EXISTS "/usr/local/cuda/bin/nvcc")
+  if(NOT DEFINED CUDAToolkit_ROOT AND NOT DEFINED ENV{CUDAToolkit_ROOT})
+    set(CUDAToolkit_ROOT "/usr/local/cuda")
+  endif()
+  if(NOT DEFINED CUDA_TOOLKIT_ROOT_DIR)
+    set(CUDA_TOOLKIT_ROOT_DIR "/usr/local/cuda" CACHE PATH "CUDA toolkit root")
+  endif()
+endif()
+
 include(CMakeFindDependencyMacro)
 find_dependency(CUDAToolkit)
 find_dependency(vpi)
